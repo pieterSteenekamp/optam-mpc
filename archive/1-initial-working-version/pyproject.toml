@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "optam-mpc"
+version = "0.1.0"
+description = "Open Advanced Process Control - Industrial MPC made accessible"
+authors = [
+    {name = "Pieter Steenekamp"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24,<2.0",
+    "scipy>=1.10,<2.0",
+    "osqp>=0.6.3",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "black>=23.7",
+    "ruff>=0.0.285",
+    "mypy>=1.4",
+    "pre-commit>=3.3",
+]
+opcua = [
+    "opcua>=0.98",
+]
+digital-twin = [
+    "flask>=2.3",
+    "flask-socketio>=5.3",
+]
+
+[tool.setuptools]
+packages = ["optam_mpc", "optam_mpc.core", "optam_mpc.config", "optam_mpc.interfaces", "optam_mpc.utils"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

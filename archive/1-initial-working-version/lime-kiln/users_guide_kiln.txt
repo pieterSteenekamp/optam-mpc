@@ -1,0 +1,73 @@
+LIME KILN DIGITAL TWIN WITH APC – USER GUIDE
+
+This application simulates a rotary lime kiln.
+The base layer is a PI temperature controller that keeps the kiln at 1200 K.
+An optional APC (advanced process controller) adjusts the temperature setpoint
+to maintain a target product quality (Q_target = 0.95) when the feed rate changes.
+
+THE KILN PROCESS – NON‑LINEAR CHEMISTRY
+----------------------------------------
+The digital twin and the MPC controller both use the same reaction model:
+
+  • Calcination (desired):
+    CaCO₃  →  CaO + CO₂
+    Rate ∝ exp(–Eac / (R·T))  ×  (1 – Xc)
+
+  • Sintering (undesired, reduces quality):
+    Active CaO  →  Sintered CaO
+    Rate ∝ exp(–Eas / (R·T))  ×  Xc
+
+T is the kiln temperature (K), R the gas constant, and Eac, Eas are
+activation energies (Eas > Eac, so sintering becomes important only at
+higher temperatures). Xc and Xs are the extents of calcination and sintering.
+
+Because the kiln behaves as a plug‑flow reactor, the solids spend a
+certain residence time (τ) inside the hot zone. τ is inversely proportional
+to the feed rate:  τ = (mass of solids in the kiln) / feed rate.
+At every control step the computer integrates the kinetic equations over
+the residence time using the current temperature. The resulting extents
+give product quality:
+
+    Quality Q = Xc  ×  exp(–β·Xs)     (β = 2)
+
+High quality requires complete calcination (Xc ≈ 1) but minimal sintering
+(Xs ≈ 0). The MPC uses this same non‑linear model inside its optimisation
+to choose the temperature setpoint that best maintains Q ≈ 0.95 while
+respecting temperature limits.
+
+HOW TO RUN
+-----------
+  1. Install dependencies: pip install asyncua pygame numpy scipy
+  2. Start the simulator: python kiln_simulator.py
+  3. In another terminal, start the APC:  python kiln_apc.py
+  4. Use the GUI keys to interact.
+
+CONTROLS
+--------
+  ↑ / ↓   : change simulation speed
+  A        : toggle APC on/off
+  SPACE    : hold for manual temperature setpoint (adjust with M/N keys)
+  W        : toggle square‑wave feed (low/high alternately)
+  ESC      : quit
+
+SQUARE‑WAVE FEED
+-----------------
+  When enabled, the feed rate alternates between 7 and 9 kg/s every
+  30 control intervals. This shows how the controllers handle feed
+  disturbances.
+
+APC OPERATION
+-------------
+  When APC is on, it will compute an optimal temperature setpoint to
+  keep quality near 0.95. The setpoint is sent via OPC to the simulator.
+  The CSV file "kiln_data.csv" logs time, feed rate, temperature,
+  setpoint, firing rate, conversion, sintering, quality, and APC status.
+  Use this file to analyse controller performance.
+
+TUNING
+------
+  PI gains and MPC weights are currently fixed in the code. You can
+  adjust them in kiln_models.py (PI: Kc, Ti; MPC: move_w, quality
+  penalty, etc.).
+
+Enjoy!

@@ -1,0 +1,7 @@
+numpy>=1.24,<2.0
+scipy>=1.10,<2.0
+osqp>=0.6.3
+pandas>=2.0
+pyyaml>=6.0
+pydantic>=2.0
+matplotlib>=3.7

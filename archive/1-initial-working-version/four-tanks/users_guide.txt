@@ -1,0 +1,83 @@
+=====================================================
+   Four‑Tank Ring Process Digital Twin – User Guide
+=====================================================
+
+What is this application?
+-------------------------
+This is a real‑time simulation of a four‑tank ring process controlled
+by two layers:
+  • PI Base Layer – keeps the plant steady when the advanced controller is off.
+  • APC (Advanced Process Controller) – an MPC that can optimise the economic
+    variable (outflow F4) while respecting level limits.
+
+The simulation runs as a digital twin with a graphical interface.
+A separate OPC‑linked controller program executes the MPC.
+
+Two ways to run this demo, with or without Python installed:
+
+--------------
+
+First way to run the demo, without Python:
+
+Just double-click on the "double click on me to run the demo.bat" file and it should run.
+
+Warning : it takes up to three minutes to properly initialise, please be patient before playing around with the demo
+
+--------------
+
+Second way to run the demo, with Python:
+
+1. Install dependencies:
+   pip install asyncua pygame numpy scipy
+
+2. Run the digital twin (OPC server + GUI):
+   python plant_simulator.py
+
+3. In a new terminal, run the APC controller:
+   python apc_controller.py
+
+4. Both programs must be running. The GUI shows tank levels, flows, and mode.
+
+Controls (when NOT in tuning mode):
+-------------------------------------
+  A         : toggle APC on/off
+  SPACE     : hold for manual override (flow setpoints currently fixed at 0)
+  ↑ / ↓     : increase / decrease simulation speed
+  J / I     : decrease / increase max flow F2 (valve restriction)
+  K / L     : decrease / increase leak manually
+  W         : toggle square‑wave leak (alternates between low and high values)
+  T         : enter tuning mode (press again to exit)
+  ESC       : quit
+
+Tuning mode (press T):
+-----------------------
+  In tuning mode, the right side of the window shows all adjustable
+  parameters. Use ↑/↓ to select a parameter, ←/→ to change its value.
+
+  You can tune:
+    - PI gains and integral times for each tank (Kc, Ti)
+    - MPC economic weight (maximise F4)
+    - MPC level setpoint weight (how hard it tries to keep 2.0 m)
+    - MPC move suppression weight (penalises valve changes)
+    - MPC prediction horizon
+
+  Changes take effect immediately – even for the MPC (the controller reads
+  the weights from the same OPC server).
+
+Square‑wave leak:
+------------------
+  Press W to start/stop an automatic square‑wave leak disturbance.
+  The leak alternates between 0.2 and 0.5 (default) every 30 control intervals.
+  Watch how the controllers respond to the sudden change!
+
+Important notes:
+----------------
+  • Start with speed = 1x for stable APC. Later you can increase it.
+  • The base PI layer keeps all levels at 2.0 m with F4 = 2.0 m³/min.
+  • When APC is on, it will try to push F4 higher (economic mode) once the
+    levels are safe (inside 1.5–3.0 m). You can adjust the economic weight
+    to 5‑10 in tuning mode to see optimisation.
+  • If the APC fails, it holds the last good setpoints; you can always
+    switch back to PI with the A key.
+
+Enjoy experimenting!

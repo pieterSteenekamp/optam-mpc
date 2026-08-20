@@ -1,0 +1,9 @@
+Small Tip for Later
+When you're eventually ready to commit to GitHub, you'll just:
+
+cd C:\optam-mpc
+git add .
+git commit -m "Initial project structure and core models"
+git push origin main
+
+But that's for later!

@@ -1,0 +1,31 @@
+name: "2x2 MIMO FOPDT Controller"
+model:
+  model_type: "fopdt"
+  dt: 1.0
+  model_parameters:
+    K: [[1.4, 0.5], [-0.2, 0.9]]
+    tau: [[5.0, 3.0], [2.0, 4.0]]
+    theta: [[2.0, 1.0], [0.0, 1.5]]
+
+mpc:
+  prediction_horizon: 15
+  control_horizon: 5
+  
+  output_weights: [1.0, 1.0]
+  move_weights: [0.15, 0.15]
+  terminal_weights: [2.0, 2.0]
+  
+  output_scale: [1.0, 0.5]
+  input_scale: [1.0, 1.0]
+  
+  input_min: [-2.0, -2.0]
+  input_max: [2.0, 2.0]
+  move_min: [-0.5, -0.5]
+  move_max: [0.5, 0.5]
+  
+  output_min: [-0.15, -0.15]
+  output_max: [1.15, 0.65]
+  
+  bias_filter: 0.25
+  solver_max_iterations: 200
+  solver_tolerance: 1.0e-8
