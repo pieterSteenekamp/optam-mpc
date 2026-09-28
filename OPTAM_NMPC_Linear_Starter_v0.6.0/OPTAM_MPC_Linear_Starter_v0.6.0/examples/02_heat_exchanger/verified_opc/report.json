@@ -1,0 +1,143 @@
+{
+  "application": "Heat exchanger with bypass",
+  "run_id": "0aabc98bbadc4c8eb5c1b552fe67daf2",
+  "mode": "supervised_opc",
+  "terminal_state": "completed",
+  "message": "All configured samples completed.",
+  "samples": 660,
+  "requested_samples": 660,
+  "elapsed_seconds": 169.19863106100001,
+  "failures": [],
+  "mean_solver_seconds": 0.19681388984998358,
+  "checks": [
+    {
+      "signal": "outlet_flow",
+      "metric": "minimum",
+      "actual": 57.437983687616025,
+      "limit": 45,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "maximum",
+      "actual": 64.00357061717224,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "minimum",
+      "actual": 63.61929254355374,
+      "limit": 55,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "maximum",
+      "actual": 67.04813120278646,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "hx_position",
+      "metric": "minimum",
+      "actual": 44.85688064494411,
+      "limit": 25,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "hx_position",
+      "metric": "maximum",
+      "actual": 62.248996039581186,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "minimum",
+      "actual": 37.36666578252052,
+      "limit": 25,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "maximum",
+      "actual": 52.40626053415369,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "hx_position",
+      "metric": "max_abs_move",
+      "actual": 0.9999999839393041,
+      "limit": 1.000001,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "max_abs_move",
+      "actual": 1.000000006356899,
+      "limit": 1.000001,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "final_error",
+      "actual": 9.377079948080791e-07,
+      "limit": 0.1,
+      "target": 60,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "final_error",
+      "actual": 1.8279331186477066e-06,
+      "limit": 0.1,
+      "target": 64,
+      "passed": true
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "final_error",
+      "actual": 5.187612543977593e-07,
+      "limit": 0.15,
+      "target": 64,
+      "passed": true
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "final_error",
+      "actual": 5.261576632165088e-07,
+      "limit": 0.15,
+      "target": 60,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "final_error",
+      "actual": 2.0316757058935764e-06,
+      "limit": 0.15,
+      "target": 67,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "final_error",
+      "actual": 2.038377495239274e-06,
+      "limit": 0.15,
+      "target": 64,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

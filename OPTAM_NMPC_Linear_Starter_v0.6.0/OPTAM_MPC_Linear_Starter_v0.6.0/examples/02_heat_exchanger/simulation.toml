@@ -1,0 +1,259 @@
+# Independent linear plant. No nonlinear equations are executed.
+[simulation]
+samples = 660
+maximum_solver_failures = 0
+
+[[plant_outputs]]
+id = "outlet_flow"
+cv = "flow"
+unit = "m3/h"
+initial = 60
+nominal_rate_per_minute = 0
+
+[[plant_outputs]]
+id = "outlet_temperature"
+cv = "temperature"
+unit = "degC"
+initial = 64
+nominal_rate_per_minute = 0
+
+[[plant_inputs]]
+id = "hx_position"
+role = "mv"
+controller_id = "hx_valve"
+unit = "%"
+initial = 50
+
+[[plant_inputs]]
+id = "bypass_position"
+role = "mv"
+controller_id = "bypass_valve"
+unit = "%"
+initial = 50
+
+[[plant_inputs]]
+id = "inlet_temp"
+role = "measured_dv"
+controller_id = "inlet_temperature"
+unit = "degC"
+initial = 40
+
+[[plant_inputs]]
+id = "inlet_pressure"
+role = "measured_dv"
+controller_id = "upstream_pressure"
+unit = "barg"
+initial = 5
+
+[[plant_paths]]
+source = "hx_position"
+destination = "outlet_flow"
+type = "first_order"
+gain = 0.6
+time_constant_seconds = 10
+dead_time_seconds = 0
+
+[[plant_paths]]
+source = "bypass_position"
+destination = "outlet_flow"
+type = "first_order"
+gain = 0.6
+time_constant_seconds = 10
+dead_time_seconds = 0
+
+[[plant_paths]]
+source = "hx_position"
+destination = "outlet_temperature"
+type = "first_order"
+gain = 0.04686745050790796
+time_constant_seconds = 45
+dead_time_seconds = 5
+
+[[plant_paths]]
+source = "bypass_position"
+destination = "outlet_temperature"
+type = "first_order"
+gain = -0.24
+time_constant_seconds = 35
+dead_time_seconds = 5
+
+[[plant_paths]]
+source = "inlet_temp"
+destination = "outlet_temperature"
+type = "first_order"
+gain = 0.6
+time_constant_seconds = 25
+dead_time_seconds = 15
+
+[[plant_paths]]
+source = "inlet_pressure"
+destination = "outlet_flow"
+type = "first_order"
+gain = 15
+time_constant_seconds = 10
+dead_time_seconds = 0
+
+[[plant_paths]]
+source = "inlet_pressure"
+destination = "outlet_temperature"
+type = "first_order"
+gain = -2.4141568686511503
+time_constant_seconds = 40
+dead_time_seconds = 5
+
+[[target_events]]
+sample = 20
+cv = "flow"
+value = 64
+
+[[target_events]]
+sample = 100
+cv = "flow"
+value = 60
+
+[[target_events]]
+sample = 180
+cv = "temperature"
+value = 67
+
+[[target_events]]
+sample = 260
+cv = "temperature"
+value = 64
+
+[[events]]
+sample = 340
+input = "inlet_temp"
+value = 37
+
+[[events]]
+sample = 420
+input = "inlet_temp"
+value = 40
+
+[[events]]
+sample = 500
+input = "inlet_pressure"
+value = 5.4
+
+[[events]]
+sample = 580
+input = "inlet_pressure"
+value = 5
+
+[[checks]]
+signal = "outlet_flow"
+metric = "minimum"
+limit = 45
+
+[[checks]]
+signal = "outlet_flow"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "minimum"
+limit = 55
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "hx_position"
+metric = "minimum"
+limit = 25
+
+[[checks]]
+signal = "hx_position"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "bypass_position"
+metric = "minimum"
+limit = 25
+
+[[checks]]
+signal = "bypass_position"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "hx_position"
+metric = "max_abs_move"
+limit = 1.000001
+
+[[checks]]
+signal = "bypass_position"
+metric = "max_abs_move"
+limit = 1.000001
+
+[[checks]]
+signal = "outlet_flow"
+metric = "final_error"
+target = 60
+limit = 0.1
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "final_error"
+target = 64
+limit = 0.1
+
+[[checks]]
+signal = "outlet_flow"
+metric = "final_error"
+target = 64
+limit = 0.15
+end_sample = 100
+
+[[checks]]
+signal = "outlet_flow"
+metric = "final_error"
+target = 60
+limit = 0.15
+end_sample = 180
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "final_error"
+target = 67
+limit = 0.15
+end_sample = 260
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "final_error"
+target = 64
+limit = 0.15
+end_sample = 340
+
+[[plots]]
+title = "Combined outlet flow"
+signals = ["outlet_flow","target.flow"]
+ylabel = "Flow (m3/h)"
+
+[[plots]]
+title = "Mixed outlet temperature"
+signals = ["outlet_temperature","target.temperature"]
+ylabel = "Temperature (degC)"
+
+[[plots]]
+title = "Coordinated valve moves"
+signals = ["hx_position","bypass_position"]
+ylabel = "Valve position (%)"
+
+[[plots]]
+title = "Measured inlet temperature"
+signals = ["inlet_temp"]
+ylabel = "Temperature (degC)"
+
+[[plots]]
+title = "Measured upstream pressure"
+signals = ["inlet_pressure"]
+ylabel = "Pressure (barg)"
+
+

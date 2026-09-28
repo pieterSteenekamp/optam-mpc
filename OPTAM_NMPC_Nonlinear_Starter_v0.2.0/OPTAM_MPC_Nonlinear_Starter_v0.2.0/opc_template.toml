@@ -1,0 +1,15 @@
+# Generic local supervised digital-twin transport. Same file used by both processes.
+[opc]
+endpoint = "opc.tcp://127.0.0.1:4842/optam/nonlinear/"
+namespace_uri = "urn:optam:nonlinear:twin:v1"
+sample_node = "MPC.Sample"
+command_node = "MPC.Command"
+status_node = "Twin.Status"
+telemetry_node = "Twin.Telemetry"
+stop_node = "Twin.Stop"
+poll_seconds = 0.05
+request_timeout_seconds = 3.0
+startup_timeout_seconds = 120.0
+command_timeout_seconds = 15.0
+stale_timeout_seconds = 30.0
+speed = 20.0 # Simulated time / wall time requested; 1 = nominal real-time pace

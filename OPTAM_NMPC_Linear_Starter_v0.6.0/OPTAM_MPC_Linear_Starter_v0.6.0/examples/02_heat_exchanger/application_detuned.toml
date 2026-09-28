@@ -1,0 +1,206 @@
+# Completed linear 2x2 heating exchanger with bypass. See DESIGN_BASIS.md.
+[application]
+name = "Heat exchanger with bypass"
+sample_time_seconds = 5
+model_type = "linear_paths"
+
+[controller]
+prediction_form = "velocity"
+prediction_horizon_samples = 30
+control_horizon_samples = 10
+maximum_solver_cpu_seconds = 4
+use_measured_disturbances = true
+
+[[cvs]]
+id = "flow"
+name = "Mixed outlet flow"
+unit = "m3/h"
+source_type = "instrumented_process"
+initial = 60
+target = 60
+weight = 1
+normalization = 5
+protected_low = 45
+protected_high = 75
+protected_limit_weight = 1000
+protected_limit_normalization = 2
+display = "operator_and_engineering"
+
+[[cvs]]
+id = "temperature"
+name = "Mixed outlet temperature"
+unit = "degC"
+source_type = "instrumented_process"
+initial = 64
+target = 64
+weight = 1
+normalization = 2
+protected_low = 55
+protected_high = 75
+protected_limit_weight = 1000
+protected_limit_normalization = 2
+display = "operator_and_engineering"
+
+[[mvs]]
+id = "hx_valve"
+name = "Heat-exchanger valve"
+unit = "%"
+initial = 50
+lower = 25
+upper = 75
+maximum_increase_per_sample = 1
+maximum_decrease_per_sample = 1
+move_weight = 0.5
+move_normalization = 1
+
+[[mvs]]
+id = "bypass_valve"
+name = "Bypass valve"
+unit = "%"
+initial = 50
+lower = 25
+upper = 75
+maximum_increase_per_sample = 1
+maximum_decrease_per_sample = 1
+move_weight = 0.5
+move_normalization = 1
+
+[[measured_disturbances]]
+id = "inlet_temperature"
+name = "Inlet temperature"
+unit = "degC"
+initial = 40
+
+[[measured_disturbances]]
+id = "upstream_pressure"
+name = "Upstream pressure"
+unit = "barg"
+initial = 5
+
+[[model_paths]]
+source = "hx_valve"
+destination = "flow"
+type = "first_order"
+gain = 0.6
+time_constant_seconds = 10
+dead_time_seconds = 0
+engineering_basis = "DESIGN_BASIS.md: local physical gain; illustrative lag/delay"
+
+[[model_checks]]
+source = "hx_valve"
+destination = "flow"
+metric = "steady_change"
+step = 1
+expected_change = 0.6
+tolerance = 1e-10
+
+[[model_paths]]
+source = "bypass_valve"
+destination = "flow"
+type = "first_order"
+gain = 0.6
+time_constant_seconds = 10
+dead_time_seconds = 0
+engineering_basis = "DESIGN_BASIS.md: local physical gain; illustrative lag/delay"
+
+[[model_checks]]
+source = "bypass_valve"
+destination = "flow"
+metric = "steady_change"
+step = 1
+expected_change = 0.6
+tolerance = 1e-10
+
+[[model_paths]]
+source = "hx_valve"
+destination = "temperature"
+type = "first_order"
+gain = 0.04686745050790796
+time_constant_seconds = 45
+dead_time_seconds = 5
+engineering_basis = "DESIGN_BASIS.md: local physical gain; illustrative lag/delay"
+
+[[model_checks]]
+source = "hx_valve"
+destination = "temperature"
+metric = "steady_change"
+step = 1
+expected_change = 0.04686745050790796
+tolerance = 1e-10
+
+[[model_paths]]
+source = "bypass_valve"
+destination = "temperature"
+type = "first_order"
+gain = -0.24
+time_constant_seconds = 35
+dead_time_seconds = 5
+engineering_basis = "DESIGN_BASIS.md: local physical gain; illustrative lag/delay"
+
+[[model_checks]]
+source = "bypass_valve"
+destination = "temperature"
+metric = "steady_change"
+step = 1
+expected_change = -0.24
+tolerance = 1e-10
+
+[[model_paths]]
+source = "inlet_temperature"
+destination = "temperature"
+type = "first_order"
+gain = 0.6
+time_constant_seconds = 25
+dead_time_seconds = 15
+engineering_basis = "DESIGN_BASIS.md: local physical gain; illustrative lag/delay"
+
+[[model_checks]]
+source = "inlet_temperature"
+destination = "temperature"
+metric = "steady_change"
+step = 1
+expected_change = 0.6
+tolerance = 1e-10
+
+[[model_paths]]
+source = "upstream_pressure"
+destination = "flow"
+type = "first_order"
+gain = 15
+time_constant_seconds = 10
+dead_time_seconds = 0
+engineering_basis = "DESIGN_BASIS.md: local physical gain; illustrative lag/delay"
+
+[[model_checks]]
+source = "upstream_pressure"
+destination = "flow"
+metric = "steady_change"
+step = 1
+expected_change = 15
+tolerance = 1e-10
+
+[[model_paths]]
+source = "upstream_pressure"
+destination = "temperature"
+type = "first_order"
+gain = -2.4141568686511503
+time_constant_seconds = 40
+dead_time_seconds = 5
+engineering_basis = "DESIGN_BASIS.md: local physical gain; illustrative lag/delay"
+
+[[model_checks]]
+source = "upstream_pressure"
+destination = "temperature"
+metric = "steady_change"
+step = 1
+expected_change = -2.4141568686511503
+tolerance = 1e-10
+
+[[model_checks]]
+source = "inlet_temperature"
+destination = "flow"
+metric = "steady_change"
+step = 1
+expected_change = 0
+tolerance = 1e-10
+

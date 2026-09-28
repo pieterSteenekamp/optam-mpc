@@ -1,0 +1,115 @@
+# Generic nonlinear application template: intentionally invalid until engineered.
+# No application-specific values are pre-populated. See USER_MANUAL.md.
+[application]
+name = "REPLACE WITH APPLICATION NAME"
+sample_time_seconds = -1.0 # REPLACE: positive sample time
+model_type = "nonlinear_python"
+
+[controller]
+prediction_form = "velocity"
+prediction_horizon_samples = 0 # REPLACE
+control_horizon_samples = 0 # REPLACE
+maximum_solver_cpu_seconds = 4.0
+# use_measured_disturbances = true # false is for a declared feedforward comparison
+
+[[cvs]]
+id = "cv_a"
+name = "REPLACE WITH CV 1 NAME"
+unit = "REPLACE"
+source_type = "instrumented_process"
+initial = 0.0
+target = 0.0
+weight = -1.0 # REPLACE
+normalization = -1.0 # REPLACE
+protected_low = 0.0 # REPLACE
+protected_high = 0.0 # REPLACE
+protected_limit_weight = -1.0 # REPLACE
+protected_limit_normalization = -1.0 # REPLACE
+display = "operator_and_engineering"
+
+[[cvs]]
+id = "cv_b"
+name = "REPLACE WITH CV 2 NAME"
+unit = "REPLACE"
+source_type = "instrumented_process"
+initial = 0.0
+target = 0.0
+weight = -1.0 # REPLACE
+normalization = -1.0 # REPLACE
+protected_low = 0.0 # REPLACE
+protected_high = 0.0 # REPLACE
+protected_limit_weight = -1.0 # REPLACE
+protected_limit_normalization = -1.0 # REPLACE
+display = "operator_and_engineering"
+
+[[mvs]]
+id = "mv_a"
+name = "REPLACE WITH MV 1 NAME"
+unit = "REPLACE"
+initial = 0.0
+lower = 0.0 # REPLACE
+upper = 0.0 # REPLACE
+maximum_increase_per_sample = -1.0 # REPLACE
+maximum_decrease_per_sample = -1.0 # REPLACE
+move_weight = -1.0 # REPLACE
+move_normalization = -1.0 # REPLACE
+
+[[mvs]]
+id = "mv_b"
+name = "REPLACE WITH MV 2 NAME"
+unit = "REPLACE"
+initial = 0.0
+lower = 0.0 # REPLACE
+upper = 0.0 # REPLACE
+maximum_increase_per_sample = -1.0 # REPLACE
+maximum_decrease_per_sample = -1.0 # REPLACE
+move_weight = -1.0 # REPLACE
+move_normalization = -1.0 # REPLACE
+
+# Optional, dimension-independent combined-move objective. Supply exactly one
+# coefficient per MV, in the same order as the [[mvs]] blocks.
+# [[move_combinations]]
+# name = "differential valve movement"
+# coefficients = [0.5, -0.5]
+# weight = 1.0
+# normalization = 1.0
+
+[[measured_disturbances]]
+id = "dv_a"
+name = "REPLACE WITH DV 1 NAME"
+unit = "REPLACE"
+initial = 0.0
+
+[[measured_disturbances]]
+id = "dv_b"
+name = "REPLACE WITH DV 2 NAME"
+unit = "REPLACE"
+initial = 0.0
+
+
+[model]
+file = "model.py" # Your copy of model_template.py, engineered for your process.
+[model.parameters]
+# These match the illustrative template equations. Replace together with Python.
+tau_a_seconds = -1.0 # REPLACE
+tau_b_seconds = -1.0 # REPLACE
+gain_a = 1.0
+gain_b = 1.0
+curve_a = 0.01
+curve_b = 0.01
+[model.domain]
+# REPLACE: finite lower/upper bounds; include every CV, MV and DV exactly.
+cv_a = [-10, 10]
+cv_b = [-10, 10]
+mv_a = [-1, 1]
+mv_b = [-1, 1]
+dv_a = [-1, 1]
+dv_b = [-1, 1]
+
+[[nonlinear_checks]]
+name = "REPLACE: independent model calculation"
+state = [0, 0]
+mvs = [0, 0]
+dvs = [0, 0]
+expected_next = [0, 0] # REPLACE; add nonzero MV and DV cases, not just equilibrium.
+tolerance = 1e-8

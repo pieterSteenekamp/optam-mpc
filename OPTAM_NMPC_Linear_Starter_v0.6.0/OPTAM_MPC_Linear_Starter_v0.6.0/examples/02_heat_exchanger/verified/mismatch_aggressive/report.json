@@ -1,0 +1,124 @@
+{
+  "application": "Heat exchanger with bypass",
+  "samples": 360,
+  "elapsed_seconds": 76.66337650199966,
+  "failures": [],
+  "checks": [
+    {
+      "signal": "outlet_flow",
+      "metric": "max_abs_error",
+      "actual": 0.5776662593824469,
+      "limit": 0.1,
+      "target": 60,
+      "passed": false
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "max_abs_error",
+      "actual": 0.013223789028529609,
+      "limit": 0.1,
+      "target": 64,
+      "passed": true
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "minimum",
+      "actual": 55.79864266483298,
+      "limit": 45,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "maximum",
+      "actual": 64.35169228291109,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "minimum",
+      "actual": 63.44007002289955,
+      "limit": 55,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "maximum",
+      "actual": 64.56942464654723,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "hx_position",
+      "metric": "minimum",
+      "actual": 43.46482294013287,
+      "limit": 25,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "hx_position",
+      "metric": "maximum",
+      "actual": 58.89639824348271,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "minimum",
+      "actual": 41.083890936732715,
+      "limit": 25,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "maximum",
+      "actual": 52.5579244050128,
+      "limit": 75,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "hx_position",
+      "metric": "max_abs_move",
+      "actual": 1.0000000099998374,
+      "limit": 1.000001,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "max_abs_move",
+      "actual": 1.0000000099998374,
+      "limit": 1.000001,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "final_error",
+      "actual": 0.06944821930915168,
+      "limit": 0.1,
+      "target": 60,
+      "passed": true
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "final_error",
+      "actual": 0.0027521661701968014,
+      "limit": 0.1,
+      "target": 64,
+      "passed": true
+    }
+  ],
+  "mean_solver_seconds": 0.21101503539997693,
+  "passed": false,
+  "application_file": "/workspace/scratch/fb7e6c3e8fd0/work/OPTAM_MPC_Linear_Starter_v0.5.0/examples/02_heat_exchanger/application.toml",
+  "simulation_file": "/workspace/scratch/fb7e6c3e8fd0/work/OPTAM_MPC_Linear_Starter_v0.5.0/examples/02_heat_exchanger/mismatch.toml"
+}

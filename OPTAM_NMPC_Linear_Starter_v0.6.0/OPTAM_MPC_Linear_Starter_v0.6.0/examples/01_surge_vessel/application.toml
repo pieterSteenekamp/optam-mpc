@@ -1,0 +1,73 @@
+[application]
+name = "Single surge vessel"
+sample_time_seconds = 5.0
+model_type = "linear_paths"
+
+[controller]
+prediction_form = "velocity"
+prediction_horizon_samples = 60
+control_horizon_samples = 12
+maximum_solver_cpu_seconds = 4.0
+
+[[cvs]]
+id = "level"
+name = "Vessel level"
+unit = "%"
+source_type = "instrumented_process"
+initial = 50.0
+target = 50.0
+weight = 0.20
+normalization = 10.0
+protected_low = 20.0
+protected_high = 80.0
+protected_limit_weight = 1000.0
+protected_limit_normalization = 5.0
+display = "operator_and_engineering"
+
+[[derived_cvs]]
+id = "level_rate"
+name = "Filtered level rate"
+unit = "%/min"
+source_type = "derived_auxiliary"
+calculation = "rate_of_change"
+source_cv = "level"
+filter_alpha = 0.30
+initial = 0.0
+target = 0.0
+weight = 0.01
+normalization = 0.05
+display = "engineering"
+
+[[mvs]]
+id = "outlet_flow"
+name = "Outlet-flow setpoint"
+unit = "m3/h"
+initial = 60.0
+lower = 20.0
+upper = 100.0
+maximum_increase_per_sample = 0.25
+maximum_decrease_per_sample = 0.25
+move_weight = 1.0
+move_normalization = 1.0
+
+[[model_paths]]
+source = "outlet_flow"
+destination = "level"
+type = "integrator"
+integrating_gain = -0.004166666666666667
+dead_time_seconds = 0.0
+engineering_basis = "V_1_percent = 4.0 m3/%"
+
+[[model_checks]]
+source = "outlet_flow"
+destination = "level"
+step = 5.0
+expected_rate_per_minute = -0.020833333333333332
+tolerance = 1.0e-12
+
+[[model_checks]]
+source = "outlet_flow"
+destination = "level"
+step = -5.0
+expected_rate_per_minute = 0.020833333333333332
+tolerance = 1.0e-12

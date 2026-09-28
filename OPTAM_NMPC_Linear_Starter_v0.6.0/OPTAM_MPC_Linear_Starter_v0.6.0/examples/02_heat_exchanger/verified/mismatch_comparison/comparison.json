@@ -1,0 +1,26 @@
+{
+  "outlet_flow": {
+    "Aggressive": {
+      "iae_unit_minutes": 9.96268359472589,
+      "peak_abs_error": 4.351692282911088,
+      "final_abs_error": 0.06944821930915168
+    },
+    "Detuned": {
+      "iae_unit_minutes": 6.696110425044426,
+      "peak_abs_error": 4.459972173182294,
+      "final_abs_error": 0.00016335464781747078
+    }
+  },
+  "outlet_temperature": {
+    "Aggressive": {
+      "iae_unit_minutes": 1.3902129544311126,
+      "peak_abs_error": 0.5694246465472332,
+      "final_abs_error": 0.0027521661701968014
+    },
+    "Detuned": {
+      "iae_unit_minutes": 2.0793171152102357,
+      "peak_abs_error": 0.7601026565627791,
+      "final_abs_error": 0.0002238659461397674
+    }
+  }
+}

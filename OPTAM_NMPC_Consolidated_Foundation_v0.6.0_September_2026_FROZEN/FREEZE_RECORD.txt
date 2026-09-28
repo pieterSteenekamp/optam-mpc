@@ -1,0 +1,42 @@
+OPTAM-MPC CONSOLIDATED FOUNDATION v0.6.0
+SEPTEMBER 2026 FREEZE
+
+Freeze date: 5 September 2026
+Status: Frozen software foundation
+
+This freeze contains the following three immutable release archives:
+
+1. OPTAM_MPC_Canonical_Source_v0.6.0.zip
+   SHA-256: f03b2b183d84e516915351cc736570f6c5ba8d8f28635c2f2714255c878e5a36
+
+2. OPTAM_MPC_Linear_Starter_v0.6.0.zip
+   SHA-256: 0e5411cc443f08b91885c07a368783f142459376e67f40c3b2c1083e82d697cb
+
+3. OPTAM_MPC_Nonlinear_Starter_v0.2.0.zip
+   SHA-256: 9e72487df34aa8ed54cb27d9d2685ece5ac50d674f9a41f10a9ff96fb9172863
+
+Collective release name:
+OPTAM-MPC Consolidated Foundation v0.6.0 - September 2026 Freeze
+
+Rules:
+- Do not edit or rebuild these three ZIP files.
+- Do not replace a ZIP while retaining its frozen filename.
+- Improvements to documentation are versioned separately.
+- A software correction or enhancement requires a new software version.
+- The hashes above are the authoritative identity of this freeze.
+
+Verification summary at freeze:
+- Linear product tests: 74/74 PASS
+- Nonlinear product tests: 31/31 PASS
+- Canonical core tests: 4/4 PASS
+- Linear heat-exchanger offline scenario: PASS, 660 cycles, zero solver failures
+- Nonlinear heat-exchanger offline scenario: PASS, 660 cycles, zero solver failures
+- Linear surge-vessel OPC/offline comparison: 1051/1051 rows equal
+- Nonlinear heat-exchanger OPC/offline comparison: 661/661 rows equal
+- Release manifests: PASS
+- Deterministic rebuild check: PASS
+
+Important limitation:
+This is engineering-development software. It is not a safety system, a certified
+plant controller or an automatic replacement for site engineering approval,
+independent protection, commissioning procedures and operator supervision.

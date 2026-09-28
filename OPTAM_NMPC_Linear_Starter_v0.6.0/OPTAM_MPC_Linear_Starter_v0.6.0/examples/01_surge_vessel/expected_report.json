@@ -1,0 +1,52 @@
+{
+  "application": "Single surge vessel",
+  "samples": 1050,
+  "elapsed_seconds": 71.84849449100011,
+  "failures": [],
+  "checks": [
+    {
+      "signal": "vessel_level",
+      "metric": "minimum",
+      "actual": 49.99947909744583,
+      "limit": 20.0,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "vessel_level",
+      "metric": "maximum",
+      "actual": 50.59074163118436,
+      "limit": 80.0,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "outlet",
+      "metric": "max_abs_move",
+      "actual": 0.05794849555722692,
+      "limit": 0.2500001,
+      "target": null,
+      "passed": true
+    },
+    {
+      "signal": "vessel_level",
+      "metric": "final_error",
+      "actual": 0.0005209025541716983,
+      "limit": 0.5,
+      "target": 50.0,
+      "passed": true
+    },
+    {
+      "signal": "outlet",
+      "metric": "final_error",
+      "actual": 0.21787653207383073,
+      "limit": 0.25,
+      "target": 60.0,
+      "passed": true
+    }
+  ],
+  "mean_solver_seconds": 0.0668688313114221,
+  "passed": true,
+  "application_file": "/workspace/scratch/fb7e6c3e8fd0/work/generic_release_trial_fatMlV/my application/application.toml",
+  "simulation_file": "/workspace/scratch/fb7e6c3e8fd0/work/generic_release_trial_fatMlV/my application/simulation.toml"
+}

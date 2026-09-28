@@ -1,0 +1,151 @@
+# Generic simulation template; edit with application_template.toml.
+# REPLACE all placeholders; delete/copy complete blocks as needed.
+# Plant IDs are separate from controller IDs. No Python edits are required.
+# For first-order plant paths replace type/integrating_gain with:
+# type = "first_order"
+# gain = ...
+# time_constant_seconds = ...
+# dead_time_seconds = ...  (whole sample intervals)
+[simulation]
+samples = 0 # REPLACE: positive integer
+maximum_solver_failures = 0
+
+[[plant_outputs]]
+id = "y1"
+cv = "cv_1"
+unit = "REPLACE"
+initial = 0.0
+nominal_rate_per_minute = 0.0 # REPLACE if initial conditions are not steady
+
+[[plant_outputs]]
+id = "y2"
+cv = "cv_2"
+unit = "REPLACE"
+initial = 0.0
+nominal_rate_per_minute = 0.0
+
+[[plant_inputs]]
+id = "u1"
+role = "mv"
+controller_id = "mv_1"
+unit = "REPLACE"
+initial = 0.0
+
+[[plant_inputs]]
+id = "u2"
+role = "mv"
+controller_id = "mv_2"
+unit = "REPLACE"
+initial = 0.0
+
+[[plant_inputs]]
+id = "d1"
+role = "measured_dv"
+controller_id = "dv_1"
+unit = "REPLACE"
+initial = 0.0
+
+[[plant_inputs]]
+id = "d2"
+role = "measured_dv"
+controller_id = "dv_2"
+unit = "REPLACE"
+initial = 0.0
+
+# Hidden inputs have NO controller_id and NO measured_disturbances entry.
+# [[plant_inputs]]
+# id = "hidden_1"
+# role = "hidden"
+# unit = "REPLACE"
+# initial = 0.0
+
+[[plant_paths]]
+source = "u1"
+destination = "y1"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE: output units/min per input unit
+dead_time_seconds = 0.0
+
+[[plant_paths]]
+source = "u2"
+destination = "y2"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE
+dead_time_seconds = 0.0
+
+[[plant_paths]]
+source = "d1"
+destination = "y1"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE
+dead_time_seconds = 0.0
+
+[[plant_paths]]
+source = "d2"
+destination = "y2"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE
+dead_time_seconds = 0.0
+
+# Delete events for a steady test. Copy for multiple changes.
+[[events]]
+sample = 0 # REPLACE: zero-based sample at which input changes
+input = "d1"
+value = 0.0 # REPLACE: absolute input value, not a change
+
+# Copy these check forms for all relevant signals.
+[[checks]]
+signal = "y1"
+metric = "minimum"
+limit = 0.0 # REPLACE: minimum permitted over entire run
+
+[[checks]]
+signal = "y1"
+metric = "maximum"
+limit = 0.0 # REPLACE
+
+[[checks]]
+signal = "y1"
+metric = "final_error"
+target = 0.0 # REPLACE
+limit = 0.0 # REPLACE: maximum absolute final error
+
+[[checks]]
+signal = "u1"
+metric = "max_abs_move"
+limit = 0.0 # REPLACE: absolute move per sample
+
+[[plots]]
+title = "Primary CV 1"
+signals = ["y1", "cv.cv_1"]
+ylabel = "REPLACE WITH UNITS"
+
+# Optional setpoint change (only for target-based primary CVs):
+# [[target_events]]
+# sample = 20
+# cv = "cv_1"
+# value = 1.0
+#
+# Optional settled-window check:
+# [[checks]]
+# signal = "y1"
+# metric = "max_abs_error"
+# target = 1.0
+# limit = 0.1
+# start_sample = 100
+# end_sample = 200
+
+[[plots]]
+title = "Primary CV 2"
+signals = ["y2", "cv.cv_2"]
+ylabel = "REPLACE WITH UNITS"
+
+[[plots]]
+title = "Input 1"
+signals = ["u1"]
+ylabel = "REPLACE WITH UNITS"
+
+[[plots]]
+title = "Input 2"
+signals = ["u2"]
+ylabel = "REPLACE WITH UNITS"

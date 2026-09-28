@@ -1,0 +1,3 @@
+casadi==3.7.2
+matplotlib==3.10.6
+asyncua==2.0.1

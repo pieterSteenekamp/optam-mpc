@@ -1,0 +1,197 @@
+# Nonlinear plant with independently configured parameters.
+# Settling acceptance covers the complete last five minutes, not only the final point.
+[simulation]
+samples = 360
+maximum_solver_failures = 0
+
+[[checks]]
+signal = "outlet_flow"
+metric = "max_abs_error"
+target = 60
+limit = 0.1
+start_sample = 300
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "max_abs_error"
+target = 64
+limit = 0.1
+start_sample = 300
+
+[[plant_outputs]]
+id = "outlet_flow"
+cv = "flow"
+unit = "m3/h"
+initial = 60
+nominal_rate_per_minute = 0
+
+[[plant_outputs]]
+id = "outlet_temperature"
+cv = "temperature"
+unit = "degC"
+initial = 64
+nominal_rate_per_minute = 0
+
+[[plant_inputs]]
+id = "hx_position"
+role = "mv"
+controller_id = "hx_valve"
+unit = "%"
+initial = 50
+
+[[plant_inputs]]
+id = "bypass_position"
+role = "mv"
+controller_id = "bypass_valve"
+unit = "%"
+initial = 50
+
+[[plant_inputs]]
+id = "inlet_temp"
+role = "measured_dv"
+controller_id = "inlet_temperature"
+unit = "degC"
+initial = 40
+
+[[plant_inputs]]
+id = "inlet_pressure"
+role = "measured_dv"
+controller_id = "upstream_pressure"
+unit = "barg"
+initial = 5
+
+
+
+
+
+
+
+
+[[events]]
+sample = 30
+input = "inlet_temp"
+value = 37
+
+[[events]]
+sample = 110
+input = "inlet_temp"
+value = 40
+
+[[events]]
+sample = 190
+input = "inlet_pressure"
+value = 5.4
+
+[[events]]
+sample = 270
+input = "inlet_pressure"
+value = 5
+
+[[checks]]
+signal = "outlet_flow"
+metric = "minimum"
+limit = 45
+
+[[checks]]
+signal = "outlet_flow"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "minimum"
+limit = 55
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "hx_position"
+metric = "minimum"
+limit = 35
+
+[[checks]]
+signal = "hx_position"
+metric = "maximum"
+limit = 65
+
+[[checks]]
+signal = "bypass_position"
+metric = "minimum"
+limit = 35
+
+[[checks]]
+signal = "bypass_position"
+metric = "maximum"
+limit = 65
+
+[[checks]]
+signal = "hx_position"
+metric = "max_abs_move"
+limit = 1.000001
+
+[[checks]]
+signal = "bypass_position"
+metric = "max_abs_move"
+limit = 1.000001
+
+[[checks]]
+signal = "outlet_flow"
+metric = "final_error"
+target = 60
+limit = 0.1
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "final_error"
+target = 64
+limit = 0.1
+
+[[plots]]
+title = "Combined outlet flow"
+signals = ["outlet_flow"]
+ylabel = "Flow (m3/h)"
+
+[[plots]]
+title = "Mixed outlet temperature"
+signals = ["outlet_temperature"]
+ylabel = "Temperature (degC)"
+
+[[plots]]
+title = "Coordinated valve moves"
+signals = ["hx_position","bypass_position"]
+ylabel = "Valve position (%)"
+
+[[plots]]
+title = "Measured inlet temperature"
+signals = ["inlet_temp"]
+ylabel = "Temperature (degC)"
+
+[[plots]]
+title = "Measured upstream pressure"
+signals = ["inlet_pressure"]
+ylabel = "Pressure (barg)"
+
+
+[plant_model]
+file = "model.py"
+[plant_model.parameters]
+branch_flow_nominal = 30
+valve_nominal = 50
+pressure_nominal = 5
+downstream_pressure = 3
+inlet_temperature_nominal = 40
+hot_temperature = 100
+heat_transfer_flow = 48.28313737302301
+valve_curvature = 0.1
+flow_tau_seconds = 10
+temperature_tau_seconds = 40
+[plant_model.domain]
+flow = [30, 90]
+temperature = [45, 85]
+hx_valve = [35, 65]
+bypass_valve = [35, 65]
+inlet_temperature = [37, 43]
+upstream_pressure = [4.6, 5.4]
