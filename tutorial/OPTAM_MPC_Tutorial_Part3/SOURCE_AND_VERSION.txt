@@ -1,0 +1,10 @@
+Tutorial: OPTAM-MPC Hands-on Application Tutorial — Part 3, Draft 1
+Date: 6 September 2026
+Applies to: OPTAM-MPC Nonlinear Starter v0.2.0
+Core basis: OPTAM-MPC Consolidated Foundation v0.6.0, September 2026 freeze
+
+The tutorial does not modify the frozen starter. The completed example and
+generic templates are copied from the frozen nonlinear starter for convenient
+offline exercises. Archived results remain clearly separate from the fresh
+verification created while preparing this tutorial.
+

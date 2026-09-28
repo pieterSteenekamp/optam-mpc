@@ -1,0 +1,16 @@
+OPTAM-MPC Hands-on Application Tutorial — Part 2, Draft 1
+Issued: 6 September 2026
+
+Applies to:
+OPTAM_MPC_Linear_Starter_v0.6.0.zip
+SHA-256: 0e5411cc443f08b91885c07a368783f142459376e67f40c3b2c1083e82d697cb
+
+Scope:
+- 2 CVs, 2 MVs and 2 measured disturbances
+- Linear gains, first-order lags and whole-sample dead times
+- Interaction, scaling and coordinated moves
+- Measured-DV feedforward comparison
+- Deliberate plant/model mismatch and detuning
+- Local OPC UA equivalence workflow
+
+No controller-core or Python edits are required.

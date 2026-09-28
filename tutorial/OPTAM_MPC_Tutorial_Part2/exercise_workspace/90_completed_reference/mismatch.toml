@@ -1,0 +1,225 @@
+# Independent linear plant. No nonlinear equations are executed.
+# Settling acceptance covers the complete last five minutes, not only the final point.
+[simulation]
+samples = 360
+maximum_solver_failures = 0
+
+[[checks]]
+signal = "outlet_flow"
+metric = "max_abs_error"
+target = 60
+limit = 0.1
+start_sample = 300
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "max_abs_error"
+target = 64
+limit = 0.1
+start_sample = 300
+
+[[plant_outputs]]
+id = "outlet_flow"
+cv = "flow"
+unit = "m3/h"
+initial = 60
+nominal_rate_per_minute = 0
+
+[[plant_outputs]]
+id = "outlet_temperature"
+cv = "temperature"
+unit = "degC"
+initial = 64
+nominal_rate_per_minute = 0
+
+[[plant_inputs]]
+id = "hx_position"
+role = "mv"
+controller_id = "hx_valve"
+unit = "%"
+initial = 50
+
+[[plant_inputs]]
+id = "bypass_position"
+role = "mv"
+controller_id = "bypass_valve"
+unit = "%"
+initial = 50
+
+[[plant_inputs]]
+id = "inlet_temp"
+role = "measured_dv"
+controller_id = "inlet_temperature"
+unit = "degC"
+initial = 40
+
+[[plant_inputs]]
+id = "inlet_pressure"
+role = "measured_dv"
+controller_id = "upstream_pressure"
+unit = "barg"
+initial = 5
+
+[[plant_paths]]
+source = "hx_position"
+destination = "outlet_flow"
+type = "first_order"
+gain = 0.69
+time_constant_seconds = 12
+dead_time_seconds = 5
+
+[[plant_paths]]
+source = "bypass_position"
+destination = "outlet_flow"
+type = "first_order"
+gain = 0.69
+time_constant_seconds = 12
+dead_time_seconds = 5
+
+[[plant_paths]]
+source = "hx_position"
+destination = "outlet_temperature"
+type = "first_order"
+gain = 0.05389756808409415
+time_constant_seconds = 54
+dead_time_seconds = 10
+
+[[plant_paths]]
+source = "bypass_position"
+destination = "outlet_temperature"
+type = "first_order"
+gain = -0.27599999999999997
+time_constant_seconds = 42
+dead_time_seconds = 10
+
+[[plant_paths]]
+source = "inlet_temp"
+destination = "outlet_temperature"
+type = "first_order"
+gain = 0.69
+time_constant_seconds = 30
+dead_time_seconds = 20
+
+[[plant_paths]]
+source = "inlet_pressure"
+destination = "outlet_flow"
+type = "first_order"
+gain = 17.25
+time_constant_seconds = 12
+dead_time_seconds = 5
+
+[[plant_paths]]
+source = "inlet_pressure"
+destination = "outlet_temperature"
+type = "first_order"
+gain = -2.7762803989488227
+time_constant_seconds = 48
+dead_time_seconds = 10
+
+[[events]]
+sample = 30
+input = "inlet_temp"
+value = 37
+
+[[events]]
+sample = 110
+input = "inlet_temp"
+value = 40
+
+[[events]]
+sample = 190
+input = "inlet_pressure"
+value = 5.4
+
+[[events]]
+sample = 270
+input = "inlet_pressure"
+value = 5
+
+[[checks]]
+signal = "outlet_flow"
+metric = "minimum"
+limit = 45
+
+[[checks]]
+signal = "outlet_flow"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "minimum"
+limit = 55
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "hx_position"
+metric = "minimum"
+limit = 25
+
+[[checks]]
+signal = "hx_position"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "bypass_position"
+metric = "minimum"
+limit = 25
+
+[[checks]]
+signal = "bypass_position"
+metric = "maximum"
+limit = 75
+
+[[checks]]
+signal = "hx_position"
+metric = "max_abs_move"
+limit = 1.000001
+
+[[checks]]
+signal = "bypass_position"
+metric = "max_abs_move"
+limit = 1.000001
+
+[[checks]]
+signal = "outlet_flow"
+metric = "final_error"
+target = 60
+limit = 0.1
+
+[[checks]]
+signal = "outlet_temperature"
+metric = "final_error"
+target = 64
+limit = 0.1
+
+[[plots]]
+title = "Combined outlet flow"
+signals = ["outlet_flow"]
+ylabel = "Flow (m3/h)"
+
+[[plots]]
+title = "Mixed outlet temperature"
+signals = ["outlet_temperature"]
+ylabel = "Temperature (degC)"
+
+[[plots]]
+title = "Coordinated valve moves"
+signals = ["hx_position","bypass_position"]
+ylabel = "Valve position (%)"
+
+[[plots]]
+title = "Measured inlet temperature"
+signals = ["inlet_temp"]
+ylabel = "Temperature (degC)"
+
+[[plots]]
+title = "Measured upstream pressure"
+signals = ["inlet_pressure"]
+ylabel = "Pressure (barg)"
+

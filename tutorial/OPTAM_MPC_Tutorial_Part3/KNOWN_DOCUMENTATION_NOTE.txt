@@ -1,0 +1,8 @@
+The frozen example README shows some named output folders as a third positional
+argument to run_simulation.bat. The current runner requires the named-output
+form:
+
+    run_simulation.bat <application.toml> <simulation.toml> --output <folder>
+
+Tutorial Part 3 uses the correct syntax. The frozen starter and its archived
+README have not been modified.

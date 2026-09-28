@@ -1,0 +1,13 @@
+Application: Nonlinear heat exchanger with bypass
+Model SHA-256: fbd95909dca3d30bd22faca4975ac412e4208993a7120509617904bdf2d0499b
+Numeric/symbolic domain probes: 77
+Model check Nominal: (60.0, 64.0): PASS
+Model check HX valve step: (61.19221210107072, 64.01800898729685): PASS
+Model check Bypass valve step: (61.19221210107072, 63.864432409264666): PASS
+Model check Cold inlet: (60.0, 63.78849442465227): PASS
+Model check High pressure: (62.25328358620604, 63.89386858493771): PASS
+Independent plant parameters: loaded; 660 samples
+Local OPC endpoint: opc.tcp://127.0.0.1:4842/optam/nonlinear/
+Nominal solver smoke test: PASS; first MV values (50.000000000147686, 49.99999999978613)
+Nonlinear application validation: PASS
+This verifies configuration/model consistency, not plant suitability or safety.

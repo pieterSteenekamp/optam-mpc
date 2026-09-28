@@ -1,0 +1,26 @@
+{
+  "outlet_flow": {
+    "Feedforward on": {
+      "iae_unit_minutes": 4.38377150586831,
+      "peak_abs_error": 2.6040607266084237,
+      "final_abs_error": 7.727946510271977e-06
+    },
+    "Feedforward off": {
+      "iae_unit_minutes": 5.146302731866105,
+      "peak_abs_error": 3.246733472720109,
+      "final_abs_error": 9.374843003229216e-06
+    }
+  },
+  "outlet_temperature": {
+    "Feedforward on": {
+      "iae_unit_minutes": 2.1728288340031687,
+      "peak_abs_error": 0.5978601297951798,
+      "final_abs_error": 1.1719812093247128e-05
+    },
+    "Feedforward off": {
+      "iae_unit_minutes": 2.486571691870749,
+      "peak_abs_error": 0.6670506502113156,
+      "final_abs_error": 1.4306886455983658e-05
+    }
+  }
+}

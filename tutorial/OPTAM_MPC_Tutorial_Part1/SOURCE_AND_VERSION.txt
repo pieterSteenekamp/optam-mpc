@@ -1,0 +1,15 @@
+OPTAM-MPC Hands-on Application Tutorial — Part 1, Draft 1
+Issued: 6 September 2026
+
+Applies to:
+OPTAM_MPC_Linear_Starter_v0.6.0.zip
+SHA-256: 0e5411cc443f08b91885c07a368783f142459376e67f40c3b2c1083e82d697cb
+
+The frozen starter package remains authoritative and is not included or modified
+by this tutorial package.
+
+Tutorial scope:
+- Module 1: Whole-system orientation
+- Module 2: Independently configure and test the single linear surge vessel
+
+No vessel-specific Python or launcher is supplied.

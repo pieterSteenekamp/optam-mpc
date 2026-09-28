@@ -1,0 +1,140 @@
+# Completed nonlinear example. See DESIGN_BASIS.md.
+[application]
+name = "Nonlinear heat exchanger with bypass"
+sample_time_seconds = 5
+model_type = "nonlinear_python"
+
+[controller]
+prediction_form = "velocity"
+prediction_horizon_samples = 30
+control_horizon_samples = 10
+maximum_solver_cpu_seconds = 4
+use_measured_disturbances = false
+
+[[cvs]]
+id = "flow"
+name = "Mixed outlet flow"
+unit = "m3/h"
+source_type = "instrumented_process"
+initial = 60
+target = 60
+weight = 1
+normalization = 5
+protected_low = 45
+protected_high = 75
+protected_limit_weight = 1000
+protected_limit_normalization = 2
+display = "operator_and_engineering"
+
+[[cvs]]
+id = "temperature"
+name = "Mixed outlet temperature"
+unit = "degC"
+source_type = "instrumented_process"
+initial = 64
+target = 64
+weight = 1
+normalization = 2
+protected_low = 55
+protected_high = 75
+protected_limit_weight = 1000
+protected_limit_normalization = 2
+display = "operator_and_engineering"
+
+[[mvs]]
+id = "hx_valve"
+name = "Heat-exchanger valve"
+unit = "%"
+initial = 50
+lower = 35
+upper = 65
+maximum_increase_per_sample = 1
+maximum_decrease_per_sample = 1
+move_weight = 0.5
+move_normalization = 1
+
+[[mvs]]
+id = "bypass_valve"
+name = "Bypass valve"
+unit = "%"
+initial = 50
+lower = 35
+upper = 65
+maximum_increase_per_sample = 1
+maximum_decrease_per_sample = 1
+move_weight = 0.5
+move_normalization = 1
+
+[[measured_disturbances]]
+id = "inlet_temperature"
+name = "Inlet temperature"
+unit = "degC"
+initial = 40
+
+[[measured_disturbances]]
+id = "upstream_pressure"
+name = "Upstream pressure"
+unit = "barg"
+initial = 5
+
+
+[model]
+file = "model.py"
+[model.parameters]
+branch_flow_nominal = 30
+valve_nominal = 50
+pressure_nominal = 5
+downstream_pressure = 3
+inlet_temperature_nominal = 40
+hot_temperature = 100
+heat_transfer_flow = 48.28313737302301
+valve_curvature = 0.1
+flow_tau_seconds = 10
+temperature_tau_seconds = 40
+[model.domain]
+flow = [30, 90]
+temperature = [45, 85]
+hx_valve = [35, 65]
+bypass_valve = [35, 65]
+inlet_temperature = [37, 43]
+upstream_pressure = [4.6, 5.4]
+
+[[nonlinear_checks]]
+name = "Nominal"
+state = [60, 64]
+mvs = [50,50]
+dvs = [40,5]
+expected_next = [60,64]
+tolerance = 1e-8
+
+[[nonlinear_checks]]
+name = "HX valve step"
+state = [60, 64]
+mvs = [55,50]
+dvs = [40,5]
+expected_next = [61.19221210107072,64.01800898729685]
+tolerance = 1e-8
+
+[[nonlinear_checks]]
+name = "Bypass valve step"
+state = [60, 64]
+mvs = [50,55]
+dvs = [40,5]
+expected_next = [61.19221210107072,63.864432409264666]
+tolerance = 1e-8
+
+[[nonlinear_checks]]
+name = "Cold inlet"
+state = [60, 64]
+mvs = [50,50]
+dvs = [37,5]
+expected_next = [60,63.78849442465227]
+tolerance = 1e-8
+
+[[nonlinear_checks]]
+name = "High pressure"
+state = [60, 64]
+mvs = [50,50]
+dvs = [40,5.4]
+expected_next = [62.25328358620604,63.893868584937714]
+tolerance = 1e-8

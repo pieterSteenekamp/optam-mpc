@@ -1,0 +1,166 @@
+{
+  "application": "Heat exchanger with bypass",
+  "samples": 360,
+  "elapsed_seconds": 127.52982755500034,
+  "failures": [],
+  "checks": [
+    {
+      "signal": "outlet_flow",
+      "metric": "max_abs_error",
+      "actual": 0.09743558028660715,
+      "limit": 0.1,
+      "target": 60,
+      "passed": true,
+      "start_sample": 300,
+      "end_sample": 360
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "max_abs_error",
+      "actual": 0.035962011471760036,
+      "limit": 0.1,
+      "target": 64,
+      "passed": true,
+      "start_sample": 300,
+      "end_sample": 360
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "minimum",
+      "actual": 55.54020358947303,
+      "limit": 45,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "maximum",
+      "actual": 64.4599721731823,
+      "limit": 75,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "minimum",
+      "actual": 63.23989734343722,
+      "limit": 55,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "maximum",
+      "actual": 64.75964904390008,
+      "limit": 75,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "hx_position",
+      "metric": "minimum",
+      "actual": 44.539552067768426,
+      "limit": 25,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "hx_position",
+      "metric": "maximum",
+      "actual": 57.29531374669149,
+      "limit": 75,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "minimum",
+      "actual": 42.50837072603941,
+      "limit": 25,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "maximum",
+      "actual": 51.217077860457636,
+      "limit": 75,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "hx_position",
+      "metric": "max_abs_move",
+      "actual": 1.0000000099998587,
+      "limit": 1.000001,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "bypass_position",
+      "metric": "max_abs_move",
+      "actual": 1.0000000099998587,
+      "limit": 1.000001,
+      "target": null,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "outlet_flow",
+      "metric": "final_error",
+      "actual": 0.00016335464781747078,
+      "limit": 0.1,
+      "target": 60,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    },
+    {
+      "signal": "outlet_temperature",
+      "metric": "final_error",
+      "actual": 0.0002238659461397674,
+      "limit": 0.1,
+      "target": 64,
+      "passed": true,
+      "start_sample": 0,
+      "end_sample": 360
+    }
+  ],
+  "mean_solver_seconds": 0.35086497237500935,
+  "passed": true,
+  "application_file": "/workspace/scratch/07c36be1dcd4/tutorial2_build/package/OPTAM_MPC_Tutorial_Part2/exercise_workspace/90_completed_reference/application_detuned.toml",
+  "simulation_file": "/workspace/scratch/07c36be1dcd4/tutorial2_build/package/OPTAM_MPC_Tutorial_Part2/exercise_workspace/90_completed_reference/mismatch.toml",
+  "provenance": {
+    "package_version": "0.6.0",
+    "python_version": "3.12.13",
+    "dependencies": {
+      "casadi": "3.7.2",
+      "numpy": "2.5.2",
+      "matplotlib": "3.10.6",
+      "opcua": "not installed"
+    },
+    "sha256": {
+      "application": "2e80a715eab8aa27c372f33a39f0473e68e3843dff79701d9d4858f1f7b18adf",
+      "simulation": "5e86049479be8db1cd9d951fc4467b5c837227cf2ec8ccb7c03a3fcce7f045e3"
+    }
+  }
+}

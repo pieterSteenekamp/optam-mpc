@@ -1,0 +1,170 @@
+# Generic OPTAM-MPC linear application template
+#
+# This file illustrates two primary CVs, two MVs and two measured DVs. Variable
+# count is not fixed. Delete unused blocks and copy blocks when more are needed.
+# Replace every REPLACE comment and every placeholder value before validation.
+# Supported paths: integrator, first_order, gain; delays in whole sample intervals.
+# For a non-integrating path replace type/integrating_gain with:
+# type = "first_order"
+# gain = ...                    # output units per input unit
+# time_constant_seconds = ...   # positive
+# dead_time_seconds = ...       # >=0, whole multiple of sample_time_seconds
+# For a static path use type="gain", gain=..., dead_time_seconds=...; omit tau.
+
+[application]
+name = "REPLACE WITH APPLICATION NAME"
+sample_time_seconds = -1.0 # REPLACE: positive sample time
+model_type = "linear_paths"
+
+[controller]
+prediction_form = "velocity"
+prediction_horizon_samples = 0 # REPLACE
+control_horizon_samples = 0 # REPLACE
+maximum_solver_cpu_seconds = 4.0
+# use_measured_disturbances = true # false is for a declared feedforward comparison
+
+[[cvs]]
+id = "cv_1"
+name = "REPLACE WITH CV 1 NAME"
+unit = "REPLACE"
+source_type = "instrumented_process"
+initial = 0.0
+target = 0.0
+weight = -1.0 # REPLACE
+normalization = -1.0 # REPLACE
+protected_low = 0.0 # REPLACE
+protected_high = 0.0 # REPLACE
+protected_limit_weight = -1.0 # REPLACE
+protected_limit_normalization = -1.0 # REPLACE
+display = "operator_and_engineering"
+
+[[cvs]]
+id = "cv_2"
+name = "REPLACE WITH CV 2 NAME"
+unit = "REPLACE"
+source_type = "instrumented_process"
+initial = 0.0
+target = 0.0
+weight = -1.0 # REPLACE
+normalization = -1.0 # REPLACE
+protected_low = 0.0 # REPLACE
+protected_high = 0.0 # REPLACE
+protected_limit_weight = -1.0 # REPLACE
+protected_limit_normalization = -1.0 # REPLACE
+display = "operator_and_engineering"
+
+[[mvs]]
+id = "mv_1"
+name = "REPLACE WITH MV 1 NAME"
+unit = "REPLACE"
+initial = 0.0
+lower = 0.0 # REPLACE
+upper = 0.0 # REPLACE
+maximum_increase_per_sample = -1.0 # REPLACE
+maximum_decrease_per_sample = -1.0 # REPLACE
+move_weight = -1.0 # REPLACE
+move_normalization = -1.0 # REPLACE
+
+[[mvs]]
+id = "mv_2"
+name = "REPLACE WITH MV 2 NAME"
+unit = "REPLACE"
+initial = 0.0
+lower = 0.0 # REPLACE
+upper = 0.0 # REPLACE
+maximum_increase_per_sample = -1.0 # REPLACE
+maximum_decrease_per_sample = -1.0 # REPLACE
+move_weight = -1.0 # REPLACE
+move_normalization = -1.0 # REPLACE
+
+# Optional penalty on a named combination of simultaneous MV moves. There
+# must be exactly one coefficient per [[mvs]] block, in the same order.
+# Delete this block when no combined-move objective is required.
+# [[move_combinations]]
+# name = "common valve movement"
+# coefficients = [0.5, 0.5]
+# weight = 1.0
+# normalization = 1.0
+
+[[measured_disturbances]]
+id = "dv_1"
+name = "REPLACE WITH DV 1 NAME"
+unit = "REPLACE"
+initial = 0.0
+
+[[measured_disturbances]]
+id = "dv_2"
+name = "REPLACE WITH DV 2 NAME"
+unit = "REPLACE"
+initial = 0.0
+
+# Add one block for every dynamic relationship included in the model. The
+# examples below are illustrative; delete irrelevant paths and add missing ones.
+
+[[model_paths]]
+source = "mv_1"
+destination = "cv_1"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE: destination units/min per source unit
+dead_time_seconds = 0.0
+engineering_basis = "REPLACE WITH MODEL SOURCE OR CALCULATION"
+
+[[model_paths]]
+source = "mv_2"
+destination = "cv_2"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE
+dead_time_seconds = 0.0
+engineering_basis = "REPLACE"
+
+[[model_paths]]
+source = "dv_1"
+destination = "cv_1"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE
+dead_time_seconds = 0.0
+engineering_basis = "REPLACE"
+
+[[model_paths]]
+source = "dv_2"
+destination = "cv_2"
+type = "integrator"
+integrating_gain = 0.0 # REPLACE
+dead_time_seconds = 0.0
+engineering_basis = "REPLACE"
+
+# Optional derived auxiliary CV example. Remove leading # characters and edit
+# when a calculated rate-of-change CV is required.
+#
+# [[derived_cvs]]
+# id = "cv_1_rate"
+# name = "CV 1 filtered rate"
+# unit = "REPLACE PER MINUTE"
+# source_type = "derived_auxiliary"
+# calculation = "rate_of_change"
+# source_cv = "cv_1"
+# filter_alpha = 0.30
+# initial = 0.0
+# target = 0.0
+# weight = 0.01
+# normalization = 1.0
+# display = "engineering"
+
+# Optional model implementation checks; not model identification.
+# [[model_checks]]
+# source = "mv_1"
+# destination = "cv_1"
+# step = 1.0
+# expected_rate_per_minute = 0.0 # REPLACE: independent engineering calculation
+# tolerance = 1.0e-9
+
+# Copy simulation_template.toml separately to define plant, scenario and checks.
+
+# Optional non-integrating model check:
+# [[model_checks]]
+# source = "mv_1"
+# destination = "cv_1"
+# metric = "steady_change"
+# step = 1.0
+# expected_change = 0.0 # REPLACE
+# tolerance = 1.0e-9

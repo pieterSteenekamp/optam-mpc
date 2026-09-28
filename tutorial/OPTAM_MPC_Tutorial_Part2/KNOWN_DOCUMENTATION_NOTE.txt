@@ -1,0 +1,13 @@
+Documentation note identified during independent tutorial verification
+6 September 2026
+
+The frozen Example 02 README shows some named-output simulation commands with
+the output folder as a third positional argument. The v0.6.0 runner actually
+requires the optional form:
+
+    run_simulation.bat <application.toml> <simulation.toml> --output <folder>
+
+The ordinary two-file command remains correct. This tutorial uses the verified
+--output syntax. The frozen ZIP is not modified.
+
+This is a documentation-command correction, not a controller-algorithm change.

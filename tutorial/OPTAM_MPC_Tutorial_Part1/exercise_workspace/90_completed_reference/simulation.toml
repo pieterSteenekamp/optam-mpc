@@ -1,0 +1,90 @@
+# Separate simulated plant. The controller cannot read the hidden inlet.
+[simulation]
+samples = 1050
+maximum_solver_failures = 0
+
+[[plant_outputs]]
+id = "vessel_level"
+cv = "level"
+unit = "%"
+initial = 50.0
+nominal_rate_per_minute = 0.0
+
+[[plant_inputs]]
+id = "outlet"
+role = "mv"
+controller_id = "outlet_flow"
+unit = "m3/h"
+initial = 60.0
+
+[[plant_inputs]]
+id = "inlet"
+role = "hidden"
+unit = "m3/h"
+initial = 60.0
+
+[[plant_paths]]
+source = "outlet"
+destination = "vessel_level"
+type = "integrator"
+integrating_gain = -0.004166666666666667
+dead_time_seconds = 0.0
+
+[[plant_paths]]
+source = "inlet"
+destination = "vessel_level"
+type = "integrator"
+integrating_gain = 0.004166666666666667
+dead_time_seconds = 0.0
+
+[[events]]
+sample = 30
+input = "inlet"
+value = 75.0
+
+[[events]]
+sample = 180
+input = "inlet"
+value = 60.0
+
+[[checks]]
+signal = "vessel_level"
+metric = "minimum"
+limit = 20.0
+
+[[checks]]
+signal = "vessel_level"
+metric = "maximum"
+limit = 80.0
+
+[[checks]]
+signal = "outlet"
+metric = "max_abs_move"
+limit = 0.2500001
+
+[[checks]]
+signal = "vessel_level"
+metric = "final_error"
+target = 50.0
+limit = 0.50
+
+[[checks]]
+signal = "outlet"
+metric = "final_error"
+target = 60.0
+limit = 0.25
+
+[[plots]]
+title = "Measured level (auto-scaled); operating limits 20 to 80 %"
+signals = ["vessel_level", "cv.level"]
+ylabel = "Level (%)"
+
+[[plots]]
+title = "Hidden inlet and manipulated outlet"
+signals = ["inlet", "outlet"]
+ylabel = "Flow (m3/h)"
+
+[[plots]]
+title = "Internal CV: filtered level rate"
+signals = ["derived.level_rate"]
+ylabel = "Rate (%/min)"
